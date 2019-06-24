@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateVentaTable extends Migration
+class CreateIngresoTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,16 +13,18 @@ class CreateVentaTable extends Migration
      */
     public function up()
     {
-        Schema::create('venta', function (Blueprint $table) {
-            $table->increments('idventa');
-            $table->foreign('idpersona')->references('idpersona')->on('persona')->onDelete('cascade');
+        Schema::create('ingreso', function (Blueprint $table) {
+            $table->increments('idingreso');
+            $table->integer('idproveedor')->unsigned();
+            $table->foreign('idproveedor')->references('idproveedor')->on('proveedor')->onDelete('cascade');
+            $table->integer('idusuario')->unsigned();
             $table->foreign('idusuario')->references('idusuario')->on('usuario')->onDelete('cascade');
             $table->string('tipo_comprobante',20);
             $table->string('serie_comprobante',7);
             $table->string('num_comprobante',10);
             $table->dateTime('fecha_hora');
             $table->decimal('impuesto', 4, 2);
-            $table->decimal('total_venta', 11, 2);
+            $table->decimal('total_compra', 11, 2);
             $table->string('estado',20);
         });
     }
@@ -34,6 +36,6 @@ class CreateVentaTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('venta');
+        Schema::dropIfExists('ingreso');
     }
 }

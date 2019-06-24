@@ -15,7 +15,9 @@ class CreateUsuarioTable extends Migration
     {
         Schema::create('usuario', function (Blueprint $table) {
             $table->increments('idusuario');
+            $table->integer('idpersona')->unsigned();
             $table->foreign('idpersona')->references('idpersona')->on('persona')->onDelete('cascade');
+            $table->integer('idrol')->unsigned();
             $table->foreign('idrol')->references('idrol')->on('rol')->onDelete('cascade');
             $table->string('clave',64);
             $table->boolean('condicion')->default(1);

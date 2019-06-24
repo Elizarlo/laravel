@@ -15,6 +15,7 @@ class CreateArticuloTable extends Migration
     {
         Schema::create('articulo', function (Blueprint $table) {
             $table->increments('idarticulo');
+            $table->integer('idcategoria')->unsigned();
             $table->foreign('idcategoria')->references('idcategoria')->on('categoria')->onDelete('cascade');
             $table->string('codigo',50);
             $table->string('nombre',100);
