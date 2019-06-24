@@ -11,9 +11,7 @@
 |
 */
 
-Route::get('/', function () {
-    return view('principal/contenido');
-});
+Route::get('/', 'Controller@index') ;
 
 
 #Ruta plantilla principal con section y yield
