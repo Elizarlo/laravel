@@ -111,7 +111,13 @@
                             <div class="col-md-9">
                                 <input type="text" v-model="descripcion" class="form-control" placeholder="Ingrese descripcion">
                             </div>
-                        </div>
+                        </div>                        
+                        <div v-show="errorCategoria" class="form-group row div-error">  
+                            <div class="text-center text-error">  
+                              <div v-for="error in errorMostrar" :key="error" v-text="error">                              
+                              </div>                             
+                            </div> 
+                      </div>                         
                     </form>
                 </div>
                 <div class="modal-footer">
@@ -166,19 +172,19 @@ export default {
         arrayCategoria: [],
         modal : 0,
         titulo : "",
-        tipoAccion : 0
+        tipoAccion : 0,
+        errorCategoria : 0,
+        errorMostrar : []
 		  }
     },
     mounted() {        
         this.cargar();
-        this.agregar();
-        this.cerrarModal();
     },
 	computed: {
  
 	},
 	methods: {
-		  cargar() {
+      cargar() {
         let datos = this;
         axios.get('/categoria').then(function (response) {
         datos.arrayCategoria = response.data;
@@ -189,6 +195,11 @@ export default {
         }); 
         },
      agregar(){
+     
+         if(this.validar()){
+          return;
+         }
+         
         let me = this;
         axios.post('/categoria/agregar',{
             'nombre': this.nombre,
@@ -208,6 +219,16 @@ export default {
           this.nombre = "";
           this.descripcion = "";
      },
+     validar(){
+          this.errorCategoria = 0;
+          this.errorMostrar = [];
+          
+          if(!this.nombre) this.errorMostrar.push("No dejar categorias en blanco.");
+          if(!this.descripcion) this.errorMostrar.push("No dejar descripcion en blanco.");
+          console.log(this.nombre);
+          if(this.errorMostrar.length) this.errorCategoria = 1;
+          return this.errorCategoria;
+      },
      abrirModal(modelo,accion,data = []){
         switch(modelo){
             case "categoria":{
