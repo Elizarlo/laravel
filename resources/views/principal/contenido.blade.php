@@ -2,11 +2,11 @@
 @section ('contenido')
 
 <template v-if="menu==0">
-  <example-component>  </example-component>
+  <h2> Contenido del menu principal</h2>
 </template>
 
 <template v-if="menu==1">
-  <h2> Contenido del menu 1</h2>
+    <categoria></categoria>
 </template>
 
 <template v-if="menu==2">
@@ -49,6 +49,10 @@
 
 <template v-if="menu==11">
   <h2> Contenido del menu 11</h2>
+</template>
+  
+  <template v-if="menu==12">
+  <h2> Contenido del menu 12</h2>
 </template>
 
 

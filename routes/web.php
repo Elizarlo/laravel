@@ -14,6 +14,15 @@
 Route::get('/', 'Controller@index') ;
 
 
+//Categorias
+Route::get('/categoria', 'CategoriaController@index') ;
+Route::post('/categoria/agregar', 'CategoriaController@store') ;
+Route::put('/categoria/actualizar', 'CategoriaController@update') ;
+Route::put('/categoria/desactivar', 'CategoriaController@desactivar') ;
+Route::put('/categoria/activar', 'CategoriaController@activar') ;
+
+
+
 #Ruta plantilla principal con section y yield
 Route::get('/usuarios', function () {
     return view('principal/usuarios');
@@ -23,23 +32,4 @@ Route::get('/principal', function () {
     return view('principal/contenido');
 });
 
-/*
-Route::get('/hola', function () {
-    return view('hola');
-});*/
 
-Route::get('/hola/{id}', function ($id) {
-    //return view('hola');
-    return 'mostrando'.$id;
-})->where('id','[0-9]+');
-
-
-Route::get('/saludo/{name}/{nickname?}', function ($name,$nickname=null) {
-    //return view('hola');
-    if($nickname){
-      return "Bienvenido {$name} , tu apodo es {$nickname}";
-    }else{
-      return "Bienvenido {$name}, tu no tienes apodo";
-    }
-
-});
