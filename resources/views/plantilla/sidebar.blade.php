@@ -70,7 +70,7 @@
                         <a class="nav-link" href="#"><i class="icon-credit-card"></i> Ventas</a>
                     </li>
                     <li @click="menu=6" class="nav-item">
-                        <a class="nav-link" href="#"><i class="icon-people"></i> Clientes</a>
+                        <a class="nav-link" href="#"><i class="icon-people"></i> Personas</a>
                     </li>
                 </ul>
             </li>

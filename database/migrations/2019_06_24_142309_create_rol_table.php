@@ -17,7 +17,7 @@ class CreateRolTable extends Migration
             $table->increments('idrol');
             $table->string('nombre',30);
             $table->string('descripcion',100);
-            $table->tinyInteger('condicion');
+            $table->tinyInteger('estado');
         });
     }
 

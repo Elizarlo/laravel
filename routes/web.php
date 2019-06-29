@@ -29,6 +29,11 @@ Route::put('/rol/desactivar', 'RolController@desactivar') ;
 Route::put('/rol/activar', 'RolController@activar') ;
 
 
+//Persona
+Route::get('/persona', 'PersonaController@index') ;
+Route::post('/persona/agregar', 'PersonaController@store') ;
+Route::put('/persona/actualizar', 'PersonaController@update') ;
+
 #Ruta plantilla principal con section y yield
 Route::get('/usuarios', function () {
     return view('principal/usuarios');
