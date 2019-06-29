@@ -15,6 +15,20 @@ class CategoriaController extends Controller
     public function index()
     {
         //
+      $categorias = Categoria::paginate(3);
+ 
+        return [
+            'pagination' => [
+                'total'        => $categorias->total(),
+                'current_page' => $categorias->currentPage(),
+                'per_page'     => $categorias->perPage(),
+                'last_page'    => $categorias->lastPage(),
+                'from'         => $categorias->firstItem(),
+                'to'           => $categorias->lastItem(),
+            ],
+            'categorias' => $categorias
+        ];
+      
       $categorias = Categoria::all();
       return $categorias;
         
@@ -30,6 +44,7 @@ class CategoriaController extends Controller
      */
     public function store(Request $request)
     {
+      if(!$request->ajax()) return redirect('/');
         //
       $categoria = new Categoria();
       $categoria->nombre =       $request->nombre;
@@ -48,8 +63,10 @@ class CategoriaController extends Controller
      */
     public function update(Request $request)
     {
+      if(!$request->ajax()) return redirect('/');
+      
         //EL metodo find or fail es para saber si recibe un objeto
-      $categoria = Categoria::findOrFail($request->id);
+      $categoria = Categoria::findOrFail($request->idcategoria);
       $categoria->nombre = $request->nombre;
       $categoria->descripcion = $request->descripcion;
       $categoria->condicion = '1';
@@ -58,15 +75,18 @@ class CategoriaController extends Controller
   
   public function desactivar(Request $request)
     {
+    if(!$request->ajax()) return redirect('/');
       //EL metodo find or fail es para saber si recibe un objeto
-      $categoria = Categoria::findOrFail($request->id);
+      $categoria = Categoria::findOrFail($request->idcategoria);
       $categoria->condicion = '0';
       $categoria->save();
     }
 
    public function activar(Request $request)
-    {//EL metodo find or fail es para saber si recibe un objeto
-      $categoria = Categoria::findOrFail($request->id);
+    {
+     if(!$request->ajax()) return redirect('/');
+     //EL metodo find or fail es para saber si recibe un objeto
+      $categoria = Categoria::findOrFail($request->idcategoria);
       $categoria->condicion = '1';
       $categoria->save();
     }

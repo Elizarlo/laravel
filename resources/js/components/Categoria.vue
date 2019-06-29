@@ -43,9 +43,20 @@
                                 <button type="button" @click="abrirModal('categoria','modificar',categoria)" class="btn btn-warning btn-sm" >
                                   <i class="icon-pencil"></i>
                                 </button> &nbsp;
-                                <button type="button" class="btn btn-danger btn-sm" >
-                                  <i class="icon-trash"></i>
+                                
+                             <template v-if="categoria.condicion">
+                                <button type="button" class="btn btn-danger btn-sm" @click="desactivar(categoria.idcategoria)">
+                                    <i class="icon-trash"></i>
                                 </button>
+                            </template>
+                            <template v-else>
+                                <button type="button" class="btn btn-info btn-sm" @click="activar(categoria.idcategoria)">
+                                    <i class="icon-check"></i>
+                                </button>
+                            </template>   
+                                
+                             
+                                
                             </td>
                             <td v-text="categoria.nombre"></td>
                             <td v-text="categoria.descripcion"></td>
@@ -63,23 +74,14 @@
                 </table>
                 <nav>
                     <ul class="pagination">
-                        <li class="page-item">
-                            <a class="page-link" href="#">Ant</a>
+                        <li class="page-item" v-if="pagination.current_page > 1">
+                            <a class="page-link" href="#" @click.prevent="cambiarPagina(pagination.current_page - 1)">Ant</a>
                         </li>
-                        <li class="page-item active">
-                            <a class="page-link" href="#">1</a>
+                        <li class="page-item" v-for="page in pagesNumber" :key="page" :class="[page == isActived ? 'active' : '']">
+                            <a class="page-link" href="#" @click.prevent="cambiarPagina(page)" v-text="page"></a>
                         </li>
-                        <li class="page-item">
-                            <a class="page-link" href="#">2</a>
-                        </li>
-                        <li class="page-item">
-                            <a class="page-link" href="#">3</a>
-                        </li>
-                        <li class="page-item">
-                            <a class="page-link" href="#">4</a>
-                        </li>
-                        <li class="page-item">
-                            <a class="page-link" href="#">Sig</a>
+                        <li class="page-item" v-if="pagination.current_page < pagination.last_page">
+                            <a class="page-link" href="#" @click.prevent="cambiarPagina(pagination.current_page + 1)">Sig</a>
                         </li>
                     </ul>
                 </nav>
@@ -124,39 +126,14 @@
                     <button type="button" class="btn btn-secondary" @click="cerrarModal()" >Cerrar</button>
                     
                     <button type="button" v-if="tipoAccion==1" class="btn btn-primary" @click="agregar()" >Guardar</button>
-                    <button type="button" v-if="tipoAccion==2" class="btn btn-primary" >Modificar</button>
+                    <button type="button" v-if="tipoAccion==2" class="btn btn-primary" @click="modificar()" >Modificar</button>
                 </div>
             </div>
             <!-- /.modal-content -->
         </div>
         <!-- /.modal-dialog -->
-    </div>
-    
-    
+    </div>  
     <!--Fin del modal-->
-    <!-- Inicio del modal Eliminar -->
-    <div class="modal fade" id="modalEliminar" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" style="display: none;" aria-hidden="true">
-        <div class="modal-dialog modal-danger" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h4 class="modal-title" v-text="titulo"></h4>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                      <span aria-hidden="true">×</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    <p>Estas seguro de eliminar la categoría?</p>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" >Cerrar</button>
-                    <button type="button" class="btn btn-danger" >Eliminar</button>
-                </div>
-            </div>
-            <!-- /.modal-content -->
-        </div>
-        <!-- /.modal-dialog -->
-    </div>
-    <!-- Fin del modal Eliminar -->
 </main>
 </template>
 
@@ -167,6 +144,7 @@ export default {
 	name: 'categories',
 	data() {
 		return {
+        categoria_id : 0,
   			nombre: '',
         descripcion: '',
         arrayCategoria: [],
@@ -174,7 +152,18 @@ export default {
         titulo : "",
         tipoAccion : 0,
         errorCategoria : 0,
-        errorMostrar : []
+        errorMostrar : [],
+        pagination : {
+            'total' : 0,
+            'current_page' : 0,
+            'per_page' : 0,
+            'last_page' : 0,
+            'from' : 0,
+            'to' : 0,
+        },
+        offset : 3,
+        criterio : 'nombre',
+        buscar : ''
 		  }
     },
     mounted() {        
@@ -182,17 +171,55 @@ export default {
     },
 	computed: {
  
+    isActived: function(){
+        return this.pagination.current_page;
+    },
+    //Calcula los elementos de la paginación
+    pagesNumber: function() {
+        if(!this.pagination.to) {
+            return [];
+        }
+
+        var from = this.pagination.current_page - this.offset; 
+        if(from < 1) {
+            from = 1;
+        }
+
+        var to = from + (this.offset * 2); 
+        if(to >= this.pagination.last_page){
+            to = this.pagination.last_page;
+        }  
+
+        var pagesArray = [];
+        while(from <= to) {
+            pagesArray.push(from);
+            from++;
+        }
+        return pagesArray;             
+
+    }
 	},
 	methods: {
-      cargar() {
+      cargar(page) {
         let datos = this;
-        axios.get('/categoria').then(function (response) {
-        datos.arrayCategoria = response.data;
+        var url = '/categoria?page=' + page;
+        axios.get(url).then(function (response) {
+        var respuesta = response.data;
+        datos.arrayCategoria = respuesta.categorias.data;
+        datos.pagination = respuesta.pagination;
         })
         .catch(function (error) {
           // handle error
           console.log(error);
         }); 
+        },
+        
+        cambiarPagina(page){
+          let me = this;
+          //Actualiza la página actual
+          me.pagination.current_page = page;
+          //Envia la petición para visualizar la data de esa página
+          me.cargar(page);
         },
      agregar(){
      
@@ -229,6 +256,109 @@ export default {
           if(this.errorMostrar.length) this.errorCategoria = 1;
           return this.errorCategoria;
       },
+      modificar(){
+        if(this.validar()){
+          return;
+         }
+         
+        let me = this;
+        axios.put('/categoria/actualizar',{
+            'nombre': this.nombre,
+            'descripcion': this.descripcion,
+            'idcategoria' : this.categoria_id
+        }).then(function (response) {
+            me.cerrarModal();
+            me.cargar();            
+        }).catch(function (error) {
+            console.log(error.response);
+        });
+      
+      },
+      desactivar(idcategoria){
+      
+        swal({
+                title: '¿desea desactivar esta categoría?',
+                type: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Aceptar!',
+                cancelButtonText: 'Cancelar',
+                confirmButtonClass: 'btn btn-success',
+                cancelButtonClass: 'btn btn-danger',
+                buttonsStyling: false,
+                reverseButtons: true
+                }).then((result) => {
+                if (result.value) {
+                    let me = this;
+                    axios.put('/categoria/desactivar',{
+                        'idcategoria' : idcategoria
+                    }).then(function (response) {
+                        me.cargar();
+                        swal(
+                        'Desactivado!',
+                        'El registro ha sido desactivado.',
+                        'success'
+                        )
+                    }).catch(function (error) {
+                        console.log(error.error);
+                    });
+                    
+                    
+                } else if (
+                    // Se cierra al cancelar
+                    result.dismiss === swal.DismissReason.cancel
+                ) {
+                    
+                }
+                }) 
+      
+      
+      },
+      
+      activar(idcategoria){
+      
+        swal({
+                title: '¿desea activar esta categoría?',
+                type: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Aceptar',
+                cancelButtonText: 'Cancelar',
+                confirmButtonClass: 'btn btn-success',
+                cancelButtonClass: 'btn btn-danger',
+                buttonsStyling: false,
+                reverseButtons: true
+                }).then((result) => {
+                if (result.value) {
+                    let me = this;
+                    axios.put('/categoria/activar',{
+                        'idcategoria' : idcategoria
+                    }).then(function (response) {
+                        me.cargar();
+                        swal(
+                        'Activado!',
+                        'El registro ha sido activado.',
+                        'success'
+                        )
+                    }).catch(function (error) {
+                        console.log(error.error);
+                    });
+                    
+                    
+                } else if (
+                    // Se cierra al cancelar
+                    result.dismiss === swal.DismissReason.cancel
+                ) {
+                    
+                }
+                }) 
+      
+      
+      },
+      
+      
      abrirModal(modelo,accion,data = []){
         switch(modelo){
             case "categoria":{
@@ -243,7 +373,14 @@ export default {
                     }
                     
                     case "modificar":{
-                      console.log(data);
+                    console.log(data);
+                      this.titulo = "Actualizar"
+                        this.modal = 1;
+                        this.nombre = data.nombre;
+                        this.descripcion = data.descripcion;
+                        this.tipoAccion = 2;
+                        this.categoria_id = data.idcategoria;
+                        break;
                     }
                 }
             }

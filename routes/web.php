@@ -21,6 +21,12 @@ Route::put('/categoria/actualizar', 'CategoriaController@update') ;
 Route::put('/categoria/desactivar', 'CategoriaController@desactivar') ;
 Route::put('/categoria/activar', 'CategoriaController@activar') ;
 
+//Roles
+Route::get('/rol', 'RolController@index') ;
+Route::post('/rol/agregar', 'RolController@store') ;
+Route::put('/rol/actualizar', 'RolController@update') ;
+Route::put('/rol/desactivar', 'RolController@desactivar') ;
+Route::put('/rol/activar', 'RolController@activar') ;
 
 
 #Ruta plantilla principal con section y yield
