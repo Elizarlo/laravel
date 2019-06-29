@@ -243,7 +243,7 @@ export default {
                     }
                     
                     case "modificar":{
-                    
+                      console.log(data);
                     }
                 }
             }
