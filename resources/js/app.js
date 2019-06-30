@@ -25,6 +25,8 @@ Vue.component('example-component', require('./components/ExampleComponent.vue').
 Vue.component('categoria', require('./components/Categoria.vue').default);
 Vue.component('rol', require('./components/Rol.vue').default);
 Vue.component('persona', require('./components/Persona.vue').default);
+Vue.component('ingreso', require('./components/Ingreso.vue').default);
+Vue.component('proveedor', require('./components/Proveedor.vue').default);
 
 
 /**

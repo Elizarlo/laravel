@@ -34,6 +34,21 @@ Route::get('/persona', 'PersonaController@index') ;
 Route::post('/persona/agregar', 'PersonaController@store') ;
 Route::put('/persona/actualizar', 'PersonaController@update') ;
 
+//Proveedor
+Route::get('/proveedor', 'ProveedorController@index') ;
+Route::post('/proveedor/agregar', 'ProveedorController@store') ;
+Route::put('/proveedor/actualizar', 'ProveedorController@update') ;
+
+//Ingresos
+Route::get('/ingreso', 'IngresoController@index') ;
+Route::post('/ingreso/agregar', 'IngresoController@store') ;
+Route::put('/ingreso/desactivar', 'IngresoController@desactivar') ;
+Route::put('/ingreso/activar', 'IngresoController@activar') ;
+
+
+
+
+
 #Ruta plantilla principal con section y yield
 Route::get('/usuarios', function () {
     return view('principal/usuarios');
