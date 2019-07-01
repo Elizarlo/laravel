@@ -57,13 +57,13 @@ class IngresoController extends Controller
 
             $ingreso = new Ingreso();
             $ingreso->idproveedor = $request->idproveedor;
-            $ingreso->idusuario = $request->idusuario;
+            $ingreso->idusuario = "2";
             $ingreso->tipo_comprobante = $request->tipo_comprobante;
             $ingreso->serie_comprobante = $request->serie_comprobante;
             $ingreso->num_comprobante = $request->num_comprobante;
             $ingreso->fecha_hora = $mytime->toDateString();
             $ingreso->impuesto = $request->impuesto;
-            $ingreso->total = $request->total_compra;
+            $ingreso->total_compra = $request->total_compra;
             $ingreso->estado = 'Registrado';
             $ingreso->save();
 
@@ -76,7 +76,7 @@ class IngresoController extends Controller
                 $detalle->idingreso = $ingreso->idingreso;
                 $detalle->idarticulo = $det['idarticulo'];
                 $detalle->cantidad = $det['cantidad'];
-                $detalle->precio = $det['precio_compra'];          
+                $detalle->precio_compra = $det['precio_compra'];          
                 $detalle->save();
             }
             
@@ -86,7 +86,7 @@ class IngresoController extends Controller
         }
     }
 
-   
+  
     /**
      * Update the specified resource in storage.
      *

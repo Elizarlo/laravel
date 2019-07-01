@@ -90,5 +90,13 @@ class CategoriaController extends Controller
       $categoria->condicion = '1';
       $categoria->save();
     }
+  
+    public function select()
+    {
+     
+     //EL metodo find or fail es para saber si recibe un objeto
+      $categorias = Categoria::all();
+      return $categorias;
+    }
     
 }

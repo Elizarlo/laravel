@@ -79,4 +79,11 @@ class PersonaController extends Controller
       $persona->save();
     }
     
+  public function select()
+    {
+     
+     //EL metodo find or fail es para saber si recibe un objeto
+      $personas = Persona::all();
+      return $personas;
+    }
 }

@@ -20,13 +20,17 @@ window.axios = require('axios');
 // const files = require.context('./', true, /\.vue$/i);
 // files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(key).default));
 
+import vSelect from 'vue-select';
 
+Vue.component('v-select', vSelect);
 Vue.component('example-component', require('./components/ExampleComponent.vue').default);
 Vue.component('categoria', require('./components/Categoria.vue').default);
 Vue.component('rol', require('./components/Rol.vue').default);
 Vue.component('persona', require('./components/Persona.vue').default);
 Vue.component('ingreso', require('./components/Ingreso.vue').default);
 Vue.component('proveedor', require('./components/Proveedor.vue').default);
+Vue.component('usuario', require('./components/Usuario.vue').default);
+Vue.component('articulo', require('./components/Articulo.vue').default);
 
 
 /**

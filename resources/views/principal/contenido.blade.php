@@ -10,7 +10,7 @@
 </template>
 
 <template v-if="menu==2">
-  <h2> Contenido del menu 2</h2>
+  <articulo></articulo>
 </template>
 
 <template v-if="menu==3">
@@ -30,7 +30,7 @@
 </template>
 
 <template v-if="menu==7">
-  <h2> Contenido del menu 7</h2>
+  <usuario></usuario>
 </template>
 
 <template v-if="menu==8">

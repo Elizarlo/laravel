@@ -91,4 +91,11 @@ class RolController extends Controller
       $rol->save();
     }
     
+  public function select()
+    {
+     
+     //EL metodo find or fail es para saber si recibe un objeto
+      $roles = Rol::all();
+      return $roles;
+    }
 }
