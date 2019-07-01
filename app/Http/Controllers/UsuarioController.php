@@ -16,7 +16,7 @@ class UsuarioController extends Controller
     {
         //
       $usuarios = Usuario::join('persona','usuario.idpersona','=','persona.idpersona')
-            ->select('persona.nombre','usuario.idrol','usuario.usuario','usuario.password','usuario.condicion')
+            ->select('persona.nombre','usuario.idpersona','usuario.idrol','usuario.usuario','usuario.password','usuario.condicion')
             ->orderBy('persona.nombre', 'desc')->paginate(3);
         return [
             'pagination' => [

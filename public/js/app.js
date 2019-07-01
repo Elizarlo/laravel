@@ -23662,7 +23662,7 @@ var render = function() {
                     ),
                     _vm._v(" "),
                     _c("td", {
-                      domProps: { textContent: _vm._s(articulo.idcategoria) }
+                      domProps: { textContent: _vm._s(articulo.nombrec) }
                     }),
                     _vm._v(" "),
                     _c("td", {
@@ -23855,7 +23855,32 @@ var render = function() {
                       _c("div", { staticClass: "col-md-9" }, [
                         _c(
                           "select",
-                          { staticClass: "form-control" },
+                          {
+                            directives: [
+                              {
+                                name: "model",
+                                rawName: "v-model",
+                                value: _vm.idcategoria,
+                                expression: "idcategoria"
+                              }
+                            ],
+                            staticClass: "form-control",
+                            on: {
+                              change: function($event) {
+                                var $$selectedVal = Array.prototype.filter
+                                  .call($event.target.options, function(o) {
+                                    return o.selected
+                                  })
+                                  .map(function(o) {
+                                    var val = "_value" in o ? o._value : o.value
+                                    return val
+                                  })
+                                _vm.idcategoria = $event.target.multiple
+                                  ? $$selectedVal
+                                  : $$selectedVal[0]
+                              }
+                            }
+                          },
                           [
                             _c("option", { attrs: { value: "1" } }, [
                               _vm._v("--Seleccione una opción--")
@@ -28487,7 +28512,32 @@ var render = function() {
                       _c("div", { staticClass: "col-md-9" }, [
                         _c(
                           "select",
-                          { staticClass: "form-control" },
+                          {
+                            directives: [
+                              {
+                                name: "model",
+                                rawName: "v-model",
+                                value: _vm.idpersona,
+                                expression: "idpersona"
+                              }
+                            ],
+                            staticClass: "form-control",
+                            on: {
+                              change: function($event) {
+                                var $$selectedVal = Array.prototype.filter
+                                  .call($event.target.options, function(o) {
+                                    return o.selected
+                                  })
+                                  .map(function(o) {
+                                    var val = "_value" in o ? o._value : o.value
+                                    return val
+                                  })
+                                _vm.idpersona = $event.target.multiple
+                                  ? $$selectedVal
+                                  : $$selectedVal[0]
+                              }
+                            }
+                          },
                           [
                             _c("option", { attrs: { value: "1" } }, [
                               _vm._v("--Seleccione una opción--")
@@ -28523,7 +28573,32 @@ var render = function() {
                       _c("div", { staticClass: "col-md-9" }, [
                         _c(
                           "select",
-                          { staticClass: "form-control" },
+                          {
+                            directives: [
+                              {
+                                name: "model",
+                                rawName: "v-model",
+                                value: _vm.idrol,
+                                expression: "idrol"
+                              }
+                            ],
+                            staticClass: "form-control",
+                            on: {
+                              change: function($event) {
+                                var $$selectedVal = Array.prototype.filter
+                                  .call($event.target.options, function(o) {
+                                    return o.selected
+                                  })
+                                  .map(function(o) {
+                                    var val = "_value" in o ? o._value : o.value
+                                    return val
+                                  })
+                                _vm.idrol = $event.target.multiple
+                                  ? $$selectedVal
+                                  : $$selectedVal[0]
+                              }
+                            }
+                          },
                           [
                             _c("option", { attrs: { value: "1" } }, [
                               _vm._v("--Seleccione una opción--")

@@ -108,7 +108,7 @@
                         <div class="form-group row">
                             <label class="col-md-3 form-control-label" for="text-input">Persona</label>
                             <div class="col-md-9">
-                                <select class="form-control" >
+                                <select v-model="idpersona" class="form-control" >
                                        <option value="1">--Seleccione una opción--</option> 
                                        <option v-for="categoria in arrayPersona" v-bind:value="categoria.idpersona">{{ categoria.nombre }}</option>
                                 </select>
@@ -118,7 +118,7 @@
                         <div class="form-group row">
                             <label class="col-md-3 form-control-label" for="text-input">Rol</label>
                             <div class="col-md-9">
-                                <select class="form-control" >
+                                <select v-model="idrol" class="form-control" >
                                        <option value="1">--Seleccione una opción--</option> 
                                        <option v-for="rol in arrayRol" v-bind:value="rol.idrol">{{ rol.nombre }}</option>
                                 </select>

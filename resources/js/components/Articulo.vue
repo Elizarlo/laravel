@@ -60,7 +60,7 @@
                              
                                 
                             </td>
-                            <td v-text="articulo.idcategoria"></td>
+                            <td v-text="articulo.nombrec"></td>
                             <td v-text="articulo.codigo"></td>
                             <td v-text="articulo.nombre"></td>
                             <td v-text="articulo.precio_venta"></td>
@@ -110,7 +110,7 @@
                         <div class="form-group row">
                             <label class="col-md-3 form-control-label" for="text-input">Categoría</label>
                             <div class="col-md-9">
-                                <select class="form-control" >
+                                <select v-model="idcategoria" class="form-control" >
                                        <option value="1">--Seleccione una opción--</option> 
                                        <option v-for="categoria in arrayCategoria" v-bind:value="categoria.idcategoria">{{ categoria.nombre }}</option>
                                 </select>

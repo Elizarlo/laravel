@@ -14,8 +14,9 @@ class ArticuloController extends Controller
     public function index()
     {
         //
-      $articulos = Articulo::paginate(3);
- 
+       $articulos = Articulo::join('categoria','articulo.idcategoria','=','categoria.idcategoria')
+            ->select('categoria.nombre as nombrec','articulo.idarticulo','articulo.codigo','articulo.nombre','articulo.precio_venta','articulo.stock','articulo.descripcion','articulo.condicion')
+            ->orderBy('articulo.nombre', 'desc')->paginate(3);
         return [
             'pagination' => [
                 'total'        => $articulos->total(),
@@ -28,7 +29,6 @@ class ArticuloController extends Controller
             'articulos' => $articulos
         ];
       
-      $articulos = Articulo::all();
       return $articulos;
         
     }
