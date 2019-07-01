@@ -2,7 +2,7 @@
 @section ('contenido')
 
 <template v-if="menu==0">
-  <h2> Contenido del menu principal</h2>
+  <example-component> </example-component>
 </template>
 
 <template v-if="menu==1">
@@ -22,7 +22,7 @@
 </template>
 
 <template v-if="menu==5">
-  <h2> Contenido del menu 5</h2>
+  <venta></venta>
 </template>
 
 <template v-if="menu==6">

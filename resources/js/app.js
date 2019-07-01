@@ -30,6 +30,7 @@ Vue.component('persona', require('./components/Persona.vue').default);
 Vue.component('ingreso', require('./components/Ingreso.vue').default);
 Vue.component('proveedor', require('./components/Proveedor.vue').default);
 Vue.component('usuario', require('./components/Usuario.vue').default);
+Vue.component('venta', require('./components/Venta.vue').default);
 Vue.component('articulo', require('./components/Articulo.vue').default);
 
 

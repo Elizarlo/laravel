@@ -65,6 +65,14 @@ Route::put('/articulo/desactivar', 'ArticuloController@desactivar') ;
 Route::put('/articulo/activar', 'ArticuloController@activar') ;
 Route::get('/articulo/select', 'ArticuloController@select') ;
 
+//Venta
+Route::get('/venta', 'VentaController@index') ;
+Route::post('/venta/agregar', 'VentaController@store') ;
+Route::put('/venta/actualizar', 'VentaController@update') ;
+Route::put('/venta/desactivar', 'VentaController@desactivar') ;
+Route::put('/venta/activar', 'VentaController@activar') ;
+Route::get('/venta/select', 'VentaController@select') ;
+
 #Ruta plantilla principal con section y yield
 Route::get('/usuarios', function () {
     return view('principal/usuarios');
